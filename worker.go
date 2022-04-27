@@ -52,6 +52,7 @@ func (w *goWorker) run() {
 			if p := recover(); p != nil {
 				if ph := w.pool.options.PanicHandler; ph != nil {
 					ph(p)
+					w.pool.options.Logger.Printf("panic handler, worker exits from a panic: %v\n", p)
 				} else {
 					w.pool.options.Logger.Printf("worker exits from a panic: %v\n", p)
 					var buf [4096]byte
